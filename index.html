@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuning Ge</title>
+    <style>
+        /* Modern, clean typography and spacing */
+        :root {
+            --primary-color: #A31F34; /* MIT Cardinal Red */
+            --text-color: #333333;
+            --bg-color: #ffffff;
+            --sidebar-bg: #f8f9fa;
+            --border-color: #e5e5e5;
+            --link-hover: #8a192b;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ----- LEFT SIDEBAR ----- */
+        .sidebar {
+            width: 320px;
+            background-color: var(--sidebar-bg);
+            padding: 50px 30px;
+            box-sizing: border-box;
+            border-right: 1px solid var(--border-color);
+            text-align: center;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h1 {
+            font-size: 1.6rem;
+            margin: 0 0 5px 0;
+            color: #111;
+        }
+
+        .sidebar h2 {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: #555;
+            margin: 0 0 25px 0;
+        }
+
+        .contact-info {
+            font-size: 0.95rem;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 200px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .contact-info p {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info svg {
+            width: 16px;
+            margin-right: 10px;
+            fill: #666;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+
+        /* ----- MAIN CONTENT ----- */
+        .main-content {
+            flex: 1;
+            margin-left: 320px; /* Offset by sidebar width */
+            padding: 50px 80px;
+            max-width: 900px;
+            box-sizing: border-box;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 40px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-tabs button {
+            background: none;
+            border: none;
+            font-size: 1.15rem;
+            padding: 10px 0;
+            cursor: pointer;
+            color: #777;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-tabs button:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-tabs button.active {
+            color: var(--primary-color);
+        }
+
+        .nav-tabs button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography and Formatting */
+        h3 {
+            font-size: 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Publication Formatting */
+        .publication {
+            margin-bottom: 25px;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .pub-authors {
+            color: #444;
+        }
+
+        .pub-venue {
+            font-style: italic;
+            color: #222;
+        }
+
+        .pub-links a {
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .pub-links a:hover {
+            background-color: var(--sidebar-bg);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 850px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 40px 20px;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 30px 20px;
+            }
+            .nav-tabs {
+                gap: 20px;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <img src="profile.jpg" alt="Your Name" class="profile-pic" onerror="this.src='https://via.placeholder.com/160'">
+        
+        <h1>Shuning Ge （戈书宁）</h1>
+        <h2>Ph.D. Candidate<br>Massachusetts Institute of Technology</h2>
+        
+        <div class="contact-info">
+            <p>
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                <a href="mailto:shuningg@mit.edu">shuningg@mit.edu</a>
+            </p>
+            <p>
+                <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <a href="https://www.linkedin.com/in/shuningge-47092a104/" target="_blank">LinkedIn</a>
+            </p>
+            <!-- <p>
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                <a href="cv.pdf" target="_blank">Curriculum Vitae</a>
+            </p> -->
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+        <nav class="nav-tabs">
+            <button class="tab-link active" onclick="openTab(event, 'Home')">Home</button>
+            <button class="tab-link" onclick="openTab(event, 'Research')">Research</button>
+            <button class="tab-link" onclick="openTab(event, 'Teaching')">Teaching</button>
+        </nav>
+
+        <section id="Home" class="tab-content active">
+            <p>Welcome! I am a Ph.D. Candidate in the Political Science Department and IDSS (joint IDPS program) at the Massachusetts Institute of Technology, advised by Professors Naoki Egami, Daniel Hidalgo, Themistoklis Sapsis, Fotini Christia, and In Song Kim.</p>
+            
+            <p>My research lies at the intersection of machine learning and causal inference. Specifically, I hope to develop and apply computational methods and experimental frameworkds for social scientists that use high-dimensional multimodal data like videos.</p>
+
+            <p>Before joining MIT, I worked as a Senior Data Coordinator at Penn Development Research Initiative, research assistant at MIT CSAIL, and was a co-founder of a start-up with $10 million Series A funding. I graduated with a B.Eng. in Material Science & Engineering and a B.B.A. in Management from Tsinghua University. I also holds an M.S. in Systems Engineering from the University of Pennsylvania.</p>
+
+            <h3>Education</h3>
+            <ul>
+                <li><strong>Ph.D. in Political Science and Statistics</strong>, Massachusetts Institute of Technology (Expected 2027)</li>
+                <li><strong>M.S.E. in Systems Engineering</strong>, University of Pennsylvania (2020)</li>
+                <li><strong>B.Eng. in Materials Science and Engineering</strong>, Tsinghua University (2018)</li>
+                <li><strong>B.B.A. in Business Administration and Management</strong>, Tsinghua University (2018)</li>
+            </ul>
+        </section>
+
+        <section id="Research" class="tab-content">
+            <p>My core research interests include: <strong>Causal Inference with Multimodal Data</strong> and <strong>Computational Social Science</strong>.</p>
+            
+            <h3>Publications</h3>
+            
+            <div class="publication">
+                <div class="pub-title">Do More Disaggregated Electoral Results Deter Aggregation Fraud?</div>
+                <div class="pub-authors">Miguel Rueda, Guy Grossman and Shuning Ge</div>
+                <div class="pub-venue">British Journal of Political Science, 2025.</div>
+                <div class="pub-links">
+                    <a href="https://www.dropbox.com/scl/fi/2ikd6hhlhyrtyz8re0m0s/2025_do_more_disaggregated_electoral_results_deter_aggregation_fraud.pdf?rlkey=47hhhi0yejgtepcz4xz069x3u&dl=0">PDF</a>
+                    <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/GBR02C">Replication</a>
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">Inclusive Refugee-Hosting in Uganda Improves Local Development and Prevents Public Backlash</div>
+                <div class="pub-authors">Yang-Yang Zhou, Guy Grossman and Shuning Ge</div>
+                <div class="pub-venue">World Development, 2023.</div>
+                <div class="pub-links">
+                    <a href="https://www.dropbox.com/scl/fi/5cwk4nwex6s4lt7vgzm11/2023_WD_Inclusive_refugee_hosting.pdf?rlkey=xz7cxm6flbj5fxx44k9wot7cg&dl=0">PDF</a>
+                    <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TXSZDC">Replication</a>
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">The effects of cellphone coverage expansion on wealth and political behavior</div>
+                <div class="pub-authors">Shuning Ge, Guy Grossman, Katrina Kosec, Apoorva Lal, Benjamin Laughlin</div>
+                <div class="pub-venue">Intl Food Policy Res Inst, 2023.</div>
+                <div class="pub-links">
+                    <a href="https://books.google.com/books?hl=en&lr=&id=YLn3EAAAQBAJ&oi=fnd&pg=PP2&dq=info:M6x6H0iP_dgJ:scholar.google.com&ots=7VdqW5l9Gu&sig=ASvK9MrT4KEiApb9N6F8BapOrwI#v=onepage&q&f=false">Link</a>
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">Building the algorithm commons: Who discovered the algorithms that underpin computing in the modern enterprise?</div>
+                <div class="pub-authors">Neil C Thompson, Shuning Ge, Yash M Sherry</div>
+                <div class="pub-venue">Global Strategy Journal, 2021.</div>
+                <div class="pub-links">
+                    <a href="https://www.dropbox.com/scl/fi/rqn20omdcugzq4txmo5qa/Global-Strategy-Journal-2020-Thompson-Building-the-algorithm-commons-Who-discovered-the-algorithms-that-underpin.pdf?rlkey=lqwcwgmg2tt53qedt8ryc3ezn&dl=0">PDF</a>
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">The Importance of (Exponentially More) Computing Power</div>
+                <div class="pub-authors">Neil C. Thompson, Shuning Ge, Gabriel F. Manso</div>
+                <div class="pub-venue">arXiv preprint, 2021.</div>
+                <div class="pub-links">
+                    <a href="https://www.dropbox.com/scl/fi/i1vpewpchik4m1ymmc9sw/2206.14007v1.pdf?rlkey=p7cw4s85ky10dabupx7jmxw9q&dl=0">PDF</a>
+                </div>
+            </div>
+
+            <h3>Working Papers</h3>
+
+            <div class="publication">
+                <div class="pub-title">Liberalizing Refugee Hosting Policies without Losing the Vote</div>
+                <div class="pub-authors">Yang-Yang Zhou, Naijia Liu, Shuning Ge and Guy Grossman</div>
+                <div class="pub-links">
+                    <a href="https://osf.io/preprints/osf/94tpy_v5">Pre-print</a>
+                </div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">Data-driven Models for Vessel Performance using Telemetry Data and Climate Reanalysis</div>
+                <div class="pub-authors">Shuning Ge, Ioannis Papakalodoukas, Themistoklis Sapsis, Fotini Christia</div>
+            </div>
+
+            <div class="publication">
+                <div class="pub-title">Interpretable Causal Effect Estimation under High-Dimensional Treatment</div>
+                <div class="pub-authors">Shuning Ge, Kentaro Nakamura</div>
+            </div>
+
+        </section>
+
+        <section id="Teaching" class="tab-content">
+            <p>At MIT, I have served as a teaching assistant for graduate-level courses in the Political Science Department, holding weekly recitation sessions, office hours, and developing computational assignments.</p>
+
+            <h3>Teaching Assistant (MIT)</h3>
+            <ul>
+                <li>
+                    <strong>[17.802]: Quant II: Causal Inference</strong> (Spring 2026)<br>
+                    <span style="color: #555; font-size: 0.95rem;">Instructor: Prof. Naoki Egami</span>
+                    <div style="margin-top: 5px;">
+                        <a href="https://learning-modules.mit.edu/class/index.html?uuid=/course/17/sp19/17.802#dashboard" style="font-size: 0.85rem;">[Course Website]</a> | 
+                        <a href="https://www.dropbox.com/scl/fi/xcuhoti5rygsx9x3de742/17_802_syll2026.pdf?rlkey=622148ihqrzv1q3s2p06ynii4&dl=0" style="font-size: 0.85rem;">[Syllabus]</a>
+                    </div>
+                </li>
+                <br>
+                <li>
+                    <strong>[17.800]: Quant I: Probability, Statistics and Linear Regression</strong> (Fall 2025)<br>
+                    <span style="color: #555; font-size: 0.95rem;">Instructor: Prof. Daniel Hidalgo</span>
+                    <div style="margin-top: 5px;">
+                        <a href="https://learning-modules.mit.edu/class/index.html?uuid=/course/17/fa19/17.800#dashboard" style="font-size: 0.85rem;">[Course Website]</a> | 
+                        <a href="https://www.dropbox.com/scl/fi/6mrw35h8zwnicxdidm0i7/17_800_syll25.pdf?rlkey=9k672ydn7szel4aq0kmrw85v4&dl=0" style="font-size: 0.85rem;">[Syllabus]</a>
+                    </div>
+                </li>
+                <br>
+                <li>
+                    <strong>[17.804]: Quant III: Generalized Linear Models and Extensions</strong> (Fall 2024)<br>
+                    <span style="color: #555; font-size: 0.95rem;">Instructor: Prof. In Song Kim</span>
+                    <div style="margin-top: 5px;">
+                        <a href="https://learning-modules.mit.edu/class/index.html?uuid=/course/17/fa19/17.804#info" style="font-size: 0.85rem;">[Course Website]</a> | 
+                        <a href="https://web.mit.edu/insong/www/pdf/syl-quant3_2024.pdf" style="font-size: 0.85rem;">[Syllabus]</a>
+                    </div>
+                </li>
+            </ul>
+
+            <h3>Instructor (MIT)</h3>
+            <ul>
+                <li>
+                    <strong>Math Camp II</strong> (Summer 2024 | Summer 2025)<br>
+                    <div style="margin-top: 5px;">
+                        <a href="https://pmlab.mit.edu/wp-content/uploads/2017/08/Math_Camp_II_2024.pdf" style="font-size: 0.85rem;">[Syllabus]</a>
+                    </div>
+                </li>
+            <ul> 
+
+        </section>
+
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Get all elements with class="tab-content" and hide them
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Get all elements with class="tab-link" and remove the class "active"
+            var tablinks = document.getElementsByClassName("tab-link");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
